@@ -111,17 +111,43 @@ enum yysymbol_kind_t
   YYSYMBOL_SELECT = 3,                     /* SELECT  */
   YYSYMBOL_FROM = 4,                       /* FROM  */
   YYSYMBOL_WHERE = 5,                      /* WHERE  */
-  YYSYMBOL_SUM = 6,                        /* SUM  */
-  YYSYMBOL_COMPARE = 7,                    /* COMPARE  */
-  YYSYMBOL_IDENTIFIER = 8,                 /* IDENTIFIER  */
-  YYSYMBOL_VALUE = 9,                      /* VALUE  */
-  YYSYMBOL_10_ = 10,                       /* '('  */
-  YYSYMBOL_11_ = 11,                       /* ')'  */
-  YYSYMBOL_12_ = 12,                       /* ';'  */
-  YYSYMBOL_YYACCEPT = 13,                  /* $accept  */
-  YYSYMBOL_query = 14,                     /* query  */
-  YYSYMBOL_projection = 15,                /* projection  */
-  YYSYMBOL_optional_semicolon = 16         /* optional_semicolon  */
+  YYSYMBOL_DISTINCT = 6,                   /* DISTINCT  */
+  YYSYMBOL_SUM = 7,                        /* SUM  */
+  YYSYMBOL_COUNT = 8,                      /* COUNT  */
+  YYSYMBOL_AVG = 9,                        /* AVG  */
+  YYSYMBOL_MIN = 10,                       /* MIN  */
+  YYSYMBOL_MAX = 11,                       /* MAX  */
+  YYSYMBOL_AND = 12,                       /* AND  */
+  YYSYMBOL_OR = 13,                        /* OR  */
+  YYSYMBOL_ORDER = 14,                     /* ORDER  */
+  YYSYMBOL_BY = 15,                        /* BY  */
+  YYSYMBOL_ASC = 16,                       /* ASC  */
+  YYSYMBOL_DESC = 17,                      /* DESC  */
+  YYSYMBOL_LIMIT = 18,                     /* LIMIT  */
+  YYSYMBOL_COMPARE = 19,                   /* COMPARE  */
+  YYSYMBOL_IDENTIFIER = 20,                /* IDENTIFIER  */
+  YYSYMBOL_VALUE = 21,                     /* VALUE  */
+  YYSYMBOL_22_ = 22,                       /* '*'  */
+  YYSYMBOL_23_ = 23,                       /* ','  */
+  YYSYMBOL_24_ = 24,                       /* '('  */
+  YYSYMBOL_25_ = 25,                       /* ')'  */
+  YYSYMBOL_26_ = 26,                       /* ';'  */
+  YYSYMBOL_YYACCEPT = 27,                  /* $accept  */
+  YYSYMBOL_query = 28,                     /* query  */
+  YYSYMBOL_select_statement = 29,          /* select_statement  */
+  YYSYMBOL_distinct_opt = 30,              /* distinct_opt  */
+  YYSYMBOL_projection_list = 31,           /* projection_list  */
+  YYSYMBOL_projection_items = 32,          /* projection_items  */
+  YYSYMBOL_projection = 33,                /* projection  */
+  YYSYMBOL_aggregate = 34,                 /* aggregate  */
+  YYSYMBOL_aggregate_argument = 35,        /* aggregate_argument  */
+  YYSYMBOL_where_opt = 36,                 /* where_opt  */
+  YYSYMBOL_boolean_expression = 37,        /* boolean_expression  */
+  YYSYMBOL_predicate = 38,                 /* predicate  */
+  YYSYMBOL_order_opt = 39,                 /* order_opt  */
+  YYSYMBOL_direction_opt = 40,             /* direction_opt  */
+  YYSYMBOL_limit_opt = 41,                 /* limit_opt  */
+  YYSYMBOL_optional_semicolon = 42         /* optional_semicolon  */
 };
 typedef enum yysymbol_kind_t yysymbol_kind_t;
 
@@ -449,19 +475,19 @@ union yyalloc
 /* YYFINAL -- State number of the termination state.  */
 #define YYFINAL  6
 /* YYLAST -- Last index in YYTABLE.  */
-#define YYLAST   19
+#define YYLAST   47
 
 /* YYNTOKENS -- Number of terminals.  */
-#define YYNTOKENS  13
+#define YYNTOKENS  27
 /* YYNNTS -- Number of nonterminals.  */
-#define YYNNTS  4
+#define YYNNTS  16
 /* YYNRULES -- Number of rules.  */
-#define YYNRULES  6
+#define YYNRULES  34
 /* YYNSTATES -- Number of states.  */
-#define YYNSTATES  18
+#define YYNSTATES  53
 
 /* YYMAXUTOK -- Last valid token kind.  */
-#define YYMAXUTOK   264
+#define YYMAXUTOK   276
 
 
 /* YYTRANSLATE(TOKEN-NUM) -- Symbol number corresponding to TOKEN-NUM
@@ -479,8 +505,8 @@ static const yytype_int8 yytranslate[] =
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
-      10,    11,     2,     2,     2,     2,     2,     2,     2,     2,
-       2,     2,     2,     2,     2,     2,     2,     2,     2,    12,
+      24,    25,    22,     2,    23,     2,     2,     2,     2,     2,
+       2,     2,     2,     2,     2,     2,     2,     2,     2,    26,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
@@ -501,14 +527,18 @@ static const yytype_int8 yytranslate[] =
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     1,     2,     3,     4,
-       5,     6,     7,     8,     9
+       5,     6,     7,     8,     9,    10,    11,    12,    13,    14,
+      15,    16,    17,    18,    19,    20,    21
 };
 
 #if YYDEBUG
 /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_int8 yyrline[] =
 {
-       0,    14,    14,    17,    17,    18,    18
+       0,    17,    17,    19,    21,    21,    22,    22,    23,    23,
+      24,    24,    25,    25,    25,    25,    25,    26,    26,    27,
+      27,    29,    30,    31,    32,    34,    35,    35,    36,    36,
+      36,    37,    37,    38,    38
 };
 #endif
 
@@ -525,8 +555,13 @@ static const char *yysymbol_name (yysymbol_kind_t yysymbol) YY_ATTRIBUTE_UNUSED;
 static const char *const yytname[] =
 {
   "\"end of file\"", "error", "\"invalid token\"", "SELECT", "FROM",
-  "WHERE", "SUM", "COMPARE", "IDENTIFIER", "VALUE", "'('", "')'", "';'",
-  "$accept", "query", "projection", "optional_semicolon", YY_NULLPTR
+  "WHERE", "DISTINCT", "SUM", "COUNT", "AVG", "MIN", "MAX", "AND", "OR",
+  "ORDER", "BY", "ASC", "DESC", "LIMIT", "COMPARE", "IDENTIFIER", "VALUE",
+  "'*'", "','", "'('", "')'", "';'", "$accept", "query",
+  "select_statement", "distinct_opt", "projection_list",
+  "projection_items", "projection", "aggregate", "aggregate_argument",
+  "where_opt", "boolean_expression", "predicate", "order_opt",
+  "direction_opt", "limit_opt", "optional_semicolon", YY_NULLPTR
 };
 
 static const char *
@@ -536,7 +571,7 @@ yysymbol_name (yysymbol_kind_t yysymbol)
 }
 #endif
 
-#define YYPACT_NINF (-7)
+#define YYPACT_NINF (-19)
 
 #define yypact_value_is_default(Yyn) \
   ((Yyn) == YYPACT_NINF)
@@ -550,8 +585,12 @@ yysymbol_name (yysymbol_kind_t yysymbol)
    STATE-NUM.  */
 static const yytype_int8 yypact[] =
 {
-      -2,    -6,     3,    -5,    -7,     0,    -7,    -1,     1,    -3,
-       5,    -7,     4,     6,     2,     7,    -7,    -7
+       7,    17,    29,     4,   -19,    -7,   -19,   -19,   -19,   -19,
+     -19,   -19,   -19,   -19,   -19,   -19,    27,     9,   -19,    10,
+      15,    -2,    -3,    28,   -19,   -19,   -19,    12,    -4,    22,
+     -19,    19,    -4,    13,   -19,    24,    23,    21,    -1,    -4,
+      -4,    20,    25,   -19,   -19,   -19,   -19,    31,    11,   -19,
+     -19,   -19,   -19
 };
 
 /* YYDEFACT[STATE-NUM] -- Default reduction number in state STATE-NUM.
@@ -559,20 +598,26 @@ static const yytype_int8 yypact[] =
    means the default is an error.  */
 static const yytype_int8 yydefact[] =
 {
-       0,     0,     0,     0,     3,     0,     1,     0,     0,     0,
-       0,     4,     0,     0,     0,     5,     6,     2
+       0,     4,     0,    33,     5,     0,     1,    34,     2,    12,
+      13,    14,    15,    16,    10,     6,     0,     7,     8,     0,
+       0,     0,     0,    19,     9,    17,    18,     0,     0,    26,
+      11,     0,     0,    20,    21,     0,    31,     0,     0,     0,
+       0,     0,     0,     3,    25,    22,    23,    24,    28,    32,
+      29,    30,    27
 };
 
 /* YYPGOTO[NTERM-NUM].  */
 static const yytype_int8 yypgoto[] =
 {
-      -7,    -7,    -7,    -7
+     -19,   -19,   -19,   -19,   -19,   -19,    26,   -19,   -19,   -19,
+     -18,   -19,   -19,   -19,   -19,   -19
 };
 
 /* YYDEFGOTO[NTERM-NUM].  */
 static const yytype_int8 yydefgoto[] =
 {
-       0,     2,     5,    17
+       0,     2,     3,     5,    16,    17,    18,    19,    27,    29,
+      33,    34,    36,    52,    43,     8
 };
 
 /* YYTABLE[YYPACT[STATE-NUM]] -- What to do in state STATE-NUM.  If
@@ -580,34 +625,50 @@ static const yytype_int8 yydefgoto[] =
    number is the opposite.  If YYTABLE_NINF, syntax error.  */
 static const yytype_int8 yytable[] =
 {
-       3,     1,     4,     6,     8,     7,     0,     9,    11,    10,
-      12,    15,    13,    14,     0,     0,     0,     0,     0,    16
+       9,    10,    11,    12,    13,     9,    10,    11,    12,    13,
+       1,    39,    40,    14,    38,    15,    31,    25,    14,    26,
+      32,    46,    47,     4,    45,    39,    40,    50,    51,     6,
+       7,    20,    21,    28,    22,    23,    35,    30,    37,    41,
+      48,    42,    44,    39,     0,     0,    49,    24
 };
 
 static const yytype_int8 yycheck[] =
 {
-       6,     3,     8,     0,     4,    10,    -1,     8,    11,     8,
-       5,     9,     8,     7,    -1,    -1,    -1,    -1,    -1,    12
+       7,     8,     9,    10,    11,     7,     8,     9,    10,    11,
+       3,    12,    13,    20,    32,    22,    20,    20,    20,    22,
+      24,    39,    40,     6,    25,    12,    13,    16,    17,     0,
+      26,     4,    23,     5,    24,    20,    14,    25,    19,    15,
+      20,    18,    21,    12,    -1,    -1,    21,    21
 };
 
 /* YYSTOS[STATE-NUM] -- The symbol kind of the accessing symbol of
    state STATE-NUM.  */
 static const yytype_int8 yystos[] =
 {
-       0,     3,    14,     6,     8,    15,     0,    10,     4,     8,
-       8,    11,     5,     8,     7,     9,    12,    16
+       0,     3,    28,    29,     6,    30,     0,    26,    42,     7,
+       8,     9,    10,    11,    20,    22,    31,    32,    33,    34,
+       4,    23,    24,    20,    33,    20,    22,    35,     5,    36,
+      25,    20,    24,    37,    38,    14,    39,    19,    37,    12,
+      13,    15,    18,    41,    21,    25,    37,    37,    20,    21,
+      16,    17,    40
 };
 
 /* YYR1[RULE-NUM] -- Symbol kind of the left-hand side of rule RULE-NUM.  */
 static const yytype_int8 yyr1[] =
 {
-       0,    13,    14,    15,    15,    16,    16
+       0,    27,    28,    29,    30,    30,    31,    31,    32,    32,
+      33,    33,    34,    34,    34,    34,    34,    35,    35,    36,
+      36,    37,    37,    37,    37,    38,    39,    39,    40,    40,
+      40,    41,    41,    42,    42
 };
 
 /* YYR2[RULE-NUM] -- Number of symbols on the right-hand side of rule RULE-NUM.  */
 static const yytype_int8 yyr2[] =
 {
-       0,     2,     9,     1,     4,     0,     1
+       0,     2,     2,     8,     0,     1,     1,     1,     1,     3,
+       1,     4,     1,     1,     1,     1,     1,     1,     1,     0,
+       2,     1,     3,     3,     3,     3,     0,     4,     0,     1,
+       1,     0,     2,     0,     1
 };
 
 
@@ -1070,28 +1131,8 @@ yyreduce:
   YY_REDUCE_PRINT (yyn);
   switch (yyn)
     {
-  case 2: /* query: SELECT projection FROM IDENTIFIER WHERE IDENTIFIER COMPARE VALUE optional_semicolon  */
-#line 14 "grammar\\minisql.y"
-                                                                                           {
-    free((yyvsp[-5].text)); free((yyvsp[-3].text)); free((yyvsp[-1].text));
-}
-#line 1079 "generated\\minisql_parser.c"
-    break;
 
-  case 3: /* projection: IDENTIFIER  */
-#line 17 "grammar\\minisql.y"
-                       { free((yyvsp[0].text)); }
-#line 1085 "generated\\minisql_parser.c"
-    break;
-
-  case 4: /* projection: SUM '(' IDENTIFIER ')'  */
-#line 17 "grammar\\minisql.y"
-                                                              { free((yyvsp[-1].text)); }
-#line 1091 "generated\\minisql_parser.c"
-    break;
-
-
-#line 1095 "generated\\minisql_parser.c"
+#line 1136 "generated\\minisql_parser.c"
 
       default: break;
     }
@@ -1284,7 +1325,7 @@ yyreturnlab:
   return yyresult;
 }
 
-#line 19 "grammar\\minisql.y"
+#line 39 "grammar\\minisql.y"
 
 void yyerror(const char *message) {
     fprintf(stderr, "[MiniSQL parser] line %d: %s\n", yylineno, message);
@@ -1299,4 +1340,3 @@ int main(int argc, char **argv) {
     puts("[MiniSQL Flex/Bison] syntax accepted");
     return 0;
 }
-

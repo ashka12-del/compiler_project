@@ -55,16 +55,34 @@ extern int yydebug;
     YYerror = 256,                 /* error  */
     YYUNDEF = 257,                 /* "invalid token"  */
     INT = 258,                     /* INT  */
-    MAIN = 259,                    /* MAIN  */
-    IF = 260,                      /* IF  */
-    ELSE = 261,                    /* ELSE  */
-    WHILE = 262,                   /* WHILE  */
-    PRINT = 263,                   /* PRINT  */
-    RETURN = 264,                  /* RETURN  */
-    COMPARE = 265,                 /* COMPARE  */
-    NUMBER = 266,                  /* NUMBER  */
-    IDENTIFIER = 267,              /* IDENTIFIER  */
-    STRING = 268                   /* STRING  */
+    FLOAT = 259,                   /* FLOAT  */
+    CHAR = 260,                    /* CHAR  */
+    VOID = 261,                    /* VOID  */
+    MAIN = 262,                    /* MAIN  */
+    IF = 263,                      /* IF  */
+    ELSE = 264,                    /* ELSE  */
+    WHILE = 265,                   /* WHILE  */
+    DO = 266,                      /* DO  */
+    FOR = 267,                     /* FOR  */
+    BREAK = 268,                   /* BREAK  */
+    CONTINUE = 269,                /* CONTINUE  */
+    PRINTF = 270,                  /* PRINTF  */
+    SCANF = 271,                   /* SCANF  */
+    RETURN = 272,                  /* RETURN  */
+    EQ_OP = 273,                   /* EQ_OP  */
+    REL_OP = 274,                  /* REL_OP  */
+    LOGICAL_AND = 275,             /* LOGICAL_AND  */
+    LOGICAL_OR = 276,              /* LOGICAL_OR  */
+    INC = 277,                     /* INC  */
+    DEC = 278,                     /* DEC  */
+    NUMBER = 279,                  /* NUMBER  */
+    FLOAT_NUMBER = 280,            /* FLOAT_NUMBER  */
+    IDENTIFIER = 281,              /* IDENTIFIER  */
+    STRING = 282,                  /* STRING  */
+    CHAR_LITERAL = 283,            /* CHAR_LITERAL  */
+    UMINUS = 284,                  /* UMINUS  */
+    ADDRESS = 285,                 /* ADDRESS  */
+    LOWER_THAN_ELSE = 286          /* LOWER_THAN_ELSE  */
   };
   typedef enum yytokentype yytoken_kind_t;
 #endif
@@ -74,9 +92,9 @@ extern int yydebug;
 union YYSTYPE
 {
 #line 10 "grammar\\minic.y"
- int number; char *text; 
+ char *text;
 
-#line 80 "generated\\minic_parser.h"
+#line 98 "generated\\minic_parser.h"
 
 };
 typedef union YYSTYPE YYSTYPE;

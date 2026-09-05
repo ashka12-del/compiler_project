@@ -3,7 +3,7 @@ from __future__ import annotations
 import re
 import tkinter as tk
 from pathlib import Path
-from tkinter import filedialog, messagebox, ttk
+from tkinter import filedialog, messagebox, simpledialog, ttk
 
 from core import compile_or_run, detect_mode
 
@@ -85,12 +85,15 @@ class Editor(tk.Tk):
         text = self.source.get("1.0", "end-1c")
         for tag in ("keyword", "sql", "string", "number", "comment"): self.source.tag_remove(tag, "1.0", "end")
         patterns = {
-            "keyword": r"\b(?:int|if|else|while|print|return|query|into)\b",
-            "sql": r"\b(?:SELECT|FROM|WHERE|SUM|SCAN|FILTER|PROJECT)\b",
-            "string": r'"(?:\\.|[^"\\])*"', "number": r"\b\d+(?:\.\d+)?\b", "comment": r"//[^\n]*",
+            "keyword": r"\b(?:int|float|char|void|if|else|while|do|for|break|continue|print|printf|scanf|return|query|into)\b",
+            "sql": r"\b(?:SELECT|DISTINCT|FROM|WHERE|AND|OR|SUM|COUNT|AVG|MIN|MAX|ORDER|BY|ASC|DESC|LIMIT|SCAN|FILTER|SORT|PROJECT)\b",
+            "string": r'"(?:\\.|[^"\\])*"',
+            "number": r"\b\d+(?:\.\d+)?\b",
+            "comment": r"//[^\n]*|--[^\n]*|/\*.*?\*/",
         }
         for tag, pattern in patterns.items():
-            for match in re.finditer(pattern, text, re.I if tag == "sql" else 0):
+            flags = re.I if tag == "sql" else re.S if tag == "comment" else 0
+            for match in re.finditer(pattern, text, flags):
                 self.source.tag_add(tag, f"1.0+{match.start()}c", f"1.0+{match.end()}c")
         self.update_status()
 
@@ -145,8 +148,17 @@ class Editor(tk.Tk):
     def build(self, run: bool):
         if not self.file and not self.save_as(): return
         if self.dirty and not self.save(): return
+        stdin_text = ""
+        if run and re.search(r"\bscanf\s*\(", self.source.get("1.0", "end-1c")):
+            entered = simpledialog.askstring(
+                "Program input",
+                "Enter scanf input (separate multiple values with spaces):",
+                parent=self,
+            )
+            if entered is None: return
+            stdin_text = entered + "\n"
         self.write_output("[Editor] Running...\n" if run else "[Editor] Compiling...\n", clear=True)
-        try: result = compile_or_run(self.source.get("1.0", "end-1c"), self.file, run)
+        try: result = compile_or_run(self.source.get("1.0", "end-1c"), self.file, run, stdin_text)
         except FileNotFoundError:
             self.write_output("[Toolchain] GCC was not found on PATH. Install GCC or add it to PATH.\n"); return
         except Exception as exc:
@@ -159,4 +171,3 @@ class Editor(tk.Tk):
 
 if __name__ == "__main__":
     Editor().mainloop()
-

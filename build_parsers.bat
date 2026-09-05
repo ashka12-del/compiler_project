@@ -7,6 +7,20 @@ if not exist bin mkdir bin
 set "FLEX=tools\winflexbison\win_flex.exe"
 set "BISON=tools\winflexbison\win_bison.exe"
 
+if not exist "%FLEX%" (
+  echo Missing %FLEX%.
+  goto :error
+)
+if not exist "%BISON%" (
+  echo Missing %BISON%.
+  goto :error
+)
+where gcc >nul 2>nul
+if errorlevel 1 (
+  echo GCC was not found on PATH.
+  goto :error
+)
+
 echo Building MiniC Flex/Bison parser...
 "%BISON%" -d -o generated\minic_parser.c grammar\minic.y || goto :error
 "%FLEX%" -o generated\minic_lexer.c grammar\minic.l || goto :error
@@ -23,4 +37,3 @@ exit /b 0
 :error
 echo Parser build failed.
 exit /b 1
-

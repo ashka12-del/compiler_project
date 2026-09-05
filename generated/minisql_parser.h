@@ -57,10 +57,22 @@ extern int yydebug;
     SELECT = 258,                  /* SELECT  */
     FROM = 259,                    /* FROM  */
     WHERE = 260,                   /* WHERE  */
-    SUM = 261,                     /* SUM  */
-    COMPARE = 262,                 /* COMPARE  */
-    IDENTIFIER = 263,              /* IDENTIFIER  */
-    VALUE = 264                    /* VALUE  */
+    DISTINCT = 261,                /* DISTINCT  */
+    SUM = 262,                     /* SUM  */
+    COUNT = 263,                   /* COUNT  */
+    AVG = 264,                     /* AVG  */
+    MIN = 265,                     /* MIN  */
+    MAX = 266,                     /* MAX  */
+    AND = 267,                     /* AND  */
+    OR = 268,                      /* OR  */
+    ORDER = 269,                   /* ORDER  */
+    BY = 270,                      /* BY  */
+    ASC = 271,                     /* ASC  */
+    DESC = 272,                    /* DESC  */
+    LIMIT = 273,                   /* LIMIT  */
+    COMPARE = 274,                 /* COMPARE  */
+    IDENTIFIER = 275,              /* IDENTIFIER  */
+    VALUE = 276                    /* VALUE  */
   };
   typedef enum yytokentype yytoken_kind_t;
 #endif
@@ -70,9 +82,9 @@ extern int yydebug;
 union YYSTYPE
 {
 #line 10 "grammar\\minisql.y"
- char *text; 
+ char *text;
 
-#line 76 "generated\\minisql_parser.h"
+#line 88 "generated\\minisql_parser.h"
 
 };
 typedef union YYSTYPE YYSTYPE;
